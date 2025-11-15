@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const usernameInput = document.getElementById("username");
 
     // Initialize the game
-    checkUsername(); 
-    // Uncomment once completed
+    checkUsername();
     displayQuestions();
     // displayScores();
 
@@ -100,10 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event listeners for form submission and new player button
     form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
         const usernameValue = usernameInput.value;
         if(usernameValue) {
             setUsername(usernameValue);
         }
+
+        // calculateScore(); uncomment when made
+        // addScore(); uncomment when made
+
+        form.submit();
+        
         checkUsername();
     })
 
@@ -113,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
     })
 
+    // Username Functions
     function setUsername(name) {
         let oldUsername = getUsername()
         if(!oldUsername) {
