@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const questionContainer = document.getElementById("question-container");
     const newPlayerButton = document.getElementById("new-player");
 
+    const usernameInput = document.getElementById("username");
+
     // Initialize the game
-    // checkUsername(); Uncomment once completed
+    checkUsername(); 
+    // Uncomment once completed
     displayQuestions();
     // displayScores();
 
@@ -97,18 +100,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event listeners for form submission and new player button
     form.addEventListener("submit", (event) => {
-        const usernameValue = document.getElementById("username").value
+        const usernameValue = usernameInput.value;
         if(usernameValue) {
-            setUsername(usernameValue)
+            setUsername(usernameValue);
         }
+        checkUsername();
     })
 
     newPlayerButton.addEventListener("click", (event) => {
-        
+        usernameInput.classList.remove("hidden");
+        newPlayerButton.classList.add("hidden");
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
     })
 
     function setUsername(name) {
-        let oldUsername = checkUsername()
+        let oldUsername = getUsername()
         if(!oldUsername) {
             const date = new Date();
             date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
@@ -118,11 +124,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function checkUsername() {
+    function getUsername() {
         return document.cookie
             .split("; ")
             .find((row) => row.startsWith(`username=`))
             ?.split("=")[1];
+    }
+
+    function checkUsername() {
+        let name = getUsername();
+        if(name) {
+            usernameInput.classList.add("hidden");
+            newPlayerButton.classList.remove("hidden");
+        }
     }
     
 });
