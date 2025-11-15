@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json()
         } catch (error) {
             //  Error handling: log the error message
-            console.error("Failed to fetch data, error.message");
+            console.error(`Failed to fetch data, ${error.message}`);
             showLoading(false)
         }
     }
@@ -97,12 +97,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Event listeners for form submission and new player button
     form.addEventListener("submit", (event) => {
-
+        const usernameValue = document.getElementById("username").value
+        if(usernameValue) {
+            setUsername(usernameValue)
+        }
     })
 
     newPlayerButton.addEventListener("click", (event) => {
-
+        
     })
 
+    function setUsername(name) {
+        let oldUsername = checkUsername()
+        if(!oldUsername) {
+            const date = new Date();
+            date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
+            let expires = "; expires=" + date.toUTCString();
+            
+            document.cookie = "username=" + name + expires + "; path=/";
+        }
+    }
 
+    function checkUsername() {
+        return document.cookie
+            .split("; ")
+            .find((row) => row.startsWith(`username=`))
+            ?.split("=")[1];
+    }
+    
 });
