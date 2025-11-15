@@ -106,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
             setUsername(usernameValue);
         }
 
-        // calculateScore(); uncomment when made
+        form.submit();
+
+        calculateScore();
         // addScore(); uncomment when made
 
-        form.submit();
-        
         checkUsername();
     })
 
@@ -145,6 +145,18 @@ document.addEventListener("DOMContentLoaded", () => {
             usernameInput.classList.add("hidden");
             newPlayerButton.classList.remove("hidden");
         }
+    }
+
+    // Score Functions
+    function calculateScore() {
+        let score = 0;
+        for (let i = 0; i < 10; i++) {
+            const checkedRadioButton = document.querySelector(`input[name="answer${i}"]:checked`);
+            if (checkedRadioButton && checkedRadioButton.dataset.correct === "true") {
+                score++;
+            }
+        }
+        return score;
     }
     
 });
