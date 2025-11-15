@@ -108,8 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         form.submit();
 
-        calculateScore();
-        // addScore(); uncomment when made
+        let score = calculateScore();
+        let username = getUsername();
+        addScore(username, score);
 
         checkUsername();
     })
@@ -157,6 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         return score;
+    }
+
+    function addScore() {
+        let allScores = JSON.parse(localStorage.getItem("leaderboard"));
+        const username = getUsername();
+        const score = calculateScore();
+        allScores[username] = score;
+        localStorage.setItem("leaderboard", JSON.stringify(allScores));
     }
     
 });
