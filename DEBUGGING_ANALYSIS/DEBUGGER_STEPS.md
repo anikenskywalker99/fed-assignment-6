@@ -30,10 +30,10 @@ I had expected more to change, but instead all I saw was a new listed variable w
 
 ### Explanation
 
-
+This spot is during the handling of the localStorage and list of previous scores. I picked this one because it would show that it was working, especially with how the code was handling variables in that function.
 
 ### What Changed?
 
-
+The focus of the code is to reorder the list of previous scores prior to saving them into the localStorage. The breakpoint showed the new score being added to the bottom of the list, but after stepping through, the new score is in the proper position. This is what was expected and shows that the code works as it should.
 
 ## Analysis
