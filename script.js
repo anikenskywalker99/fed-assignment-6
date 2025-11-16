@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
             setUsername(usernameValue);
         }
 
-        form.submit();
+        checkUsername();
 
         let score = calculateScore();
         let username = getUsername();
         addScore(username, score);
 
-        checkUsername();
+        form.submit();
     })
 
     newPlayerButton.addEventListener("click", (event) => {
