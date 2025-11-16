@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize the game
     checkUsername();
     displayQuestions();
-    // displayScores();
+    displayScores();
 
     /**
      * Fetches trivia questions from the API and displays them.
@@ -161,11 +161,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function addScore() {
-        let allScores = JSON.parse(localStorage.getItem("leaderboard"));
+        let allScores = JSON.parse(localStorage.getItem("leaderboard") || "[]");
         const username = getUsername();
         const score = calculateScore();
-        allScores[username] = score;
+        allScores.push({username: username, score: score})
         localStorage.setItem("leaderboard", JSON.stringify(allScores));
+    }
+
+    function displayScores() {
+        let allScores = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+        let scoreTable = document.querySelector("#score-table tbody");
+        scoreTable.innerHTML = "";
+
+        allScores.forEach((result) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${result.username}</td><td>${result.score}</td>`;
+            scoreTable.appendChild(row);
+        });
+
     }
     
 });
