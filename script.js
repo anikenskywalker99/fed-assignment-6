@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize the game
     checkUsername();
     displayQuestions();
-    // displayScores();
+    displayScores();
 
     /**
      * Fetches trivia questions from the API and displays them.
@@ -106,11 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
             setUsername(usernameValue);
         }
 
-        // calculateScore(); uncomment when made
-        // addScore(); uncomment when made
-
         form.submit();
-        
+
+        let score = calculateScore();
+        let username = getUsername();
+        addScore(username, score);
+
         checkUsername();
     })
 
@@ -145,6 +146,42 @@ document.addEventListener("DOMContentLoaded", () => {
             usernameInput.classList.add("hidden");
             newPlayerButton.classList.remove("hidden");
         }
+    }
+
+    // Score Functions
+    function calculateScore() {
+        let score = 0;
+        for (let i = 0; i < 10; i++) {
+            const checkedRadioButton = document.querySelector(`input[name="answer${i}"]:checked`);
+            if (checkedRadioButton && checkedRadioButton.dataset.correct === "true") {
+                score++;
+            }
+        }
+        return score;
+    }
+
+    function addScore() {
+        let allScores = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+        const username = getUsername();
+        const score = calculateScore();
+        allScores.push({username: username, score: score})
+
+        allScores.sort((a, b) => b.score - a.score);
+        
+        localStorage.setItem("leaderboard", JSON.stringify(allScores));
+    }
+
+    function displayScores() {
+        let allScores = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+        let scoreTable = document.querySelector("#score-table tbody");
+        scoreTable.innerHTML = "";
+
+        allScores.forEach((result) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${result.username}</td><td>${result.score}</td>`;
+            scoreTable.appendChild(row);
+        });
+
     }
     
 });
