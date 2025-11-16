@@ -20,11 +20,11 @@ After stepping through the breakpoint, the code has now compiled an array of tri
 
 ### Explanation
 
-
+This is the point in the code when the submit button is finalized, finishing off the quiz, and reloading the page for a new list of questions.
 
 ### What Changed?
 
-
+I had expected more to change, but instead all I saw was a new listed variable within the scope tab. I had expected this to be a bigger spot, where the page reloaded or at least something close to that extent.
 
 ## Updating Leaderboard
 
