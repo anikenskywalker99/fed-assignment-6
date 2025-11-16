@@ -165,6 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const username = getUsername();
         const score = calculateScore();
         allScores.push({username: username, score: score})
+
+        allScores.sort((a, b) => b.score - a.score);
+        
         localStorage.setItem("leaderboard", JSON.stringify(allScores));
     }
 
